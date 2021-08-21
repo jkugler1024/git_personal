@@ -1,0 +1,16 @@
+<table class='table1'>
+    <tr class='table1'>
+        <th class='table1'>Loan</th>
+        <th class='table1'>Sequence</th>
+        <th class='table1'>View/Edit</th>
+        <th class='table1'>Delete</th>
+    </tr>
+    {% for calc in calcs %}
+        <tr class='table1'>
+            <td class='table1'>{{ calc.loan }}</td>
+            <td class='table1'>{{ calc.sequence }}</td>
+            <td class='table1'><a href="{% url 'loancalc_detail' calc.id %}">View/Edit</a></td>
+            <td class='table1'><a href="{% url 'loancalc_delete' loan_id calc.id %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>

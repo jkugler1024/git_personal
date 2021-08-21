@@ -1,0 +1,28 @@
+{% extends "loans/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class='tools'>
+    <a href="{% url 'loan_create' %}">Create New Loan</a>
+</div>
+<h2>Loans</h2>
+<table class='table1'>
+    <tr class='table1'>
+        <th class='table1'>Loan</th>
+        <th class='table1'>Schedule</th>
+        <th class='table1'>Accounting</th>
+        <th class='table1'>Edit</th>
+        <th class='table1'>Delete</th>
+    </tr>
+    {% for loan in loans %}
+        <tr class='table1'>
+            <td class='table1'>{{ loan.loan_name }} </td>
+            <td class='table1'><a href="{% url 'loan_detail' loan.id %}">View</a></td>
+            <td class='table1'><a href="{% url 'loan_accounting_roll' loan.id %}">View</a></td>
+            <td class='table1'><a href="{% url 'loan_update' loan.id %}">Edit</a></td>
+            <td class='table1'><a href="{% url 'loan_delete' loan.id %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

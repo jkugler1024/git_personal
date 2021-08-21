@@ -1,0 +1,23 @@
+{% extends "loans/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class='row'>
+
+    </div>
+    <div class='row'>
+        <div class="col-md-4">
+            {% crispy form %}
+        </div>
+        <div class="col-md-8">
+            <div class='card-group'>
+                {% include 'loans/card.html' with header="Maturity Date" card_title=maturity%}
+                {% include 'loans/card.html' with header="Total Payments" card_title=payments%}
+                {% include 'loans/card.html' with header="Principal" card_title=principal%}
+                {% include 'loans/card.html' with header="Interest" card_title=interest%}
+            </div>
+            {{ schedule|safe}}
+        </div>
+    </div>
+{% endblock content %}

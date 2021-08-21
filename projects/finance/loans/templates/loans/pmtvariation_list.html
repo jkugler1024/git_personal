@@ -1,0 +1,33 @@
+{% extends "loans/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class='row'>
+        <a href="{% url 'loancalc_detail' calc.id %}">Back to {{calc}}</a>
+    </div>
+    <div class='tools'>
+        <a href="{% url 'pmt_variation_create' calc.id %}">Create New Payment Variation</a>
+    </div>
+    <h2>Payment Variations for {{ calc }}</h2>
+    <table class='table1'>
+        <tr class='table1'>
+            <th class='table1'>Pmt Nbr From</th>
+            <th class='table1'>Pmt Nbr To</th>
+            <th class='table1'>Type</th>
+            <th class='table1'>Value</th>
+            <th class='table1'>Edit</th>
+            <th class='table1'>Delete</th>
+        </tr>
+        {% for variation in variations %}
+            <tr class='table1'>
+                <td class='table1'>{{ variation.pmt_nbr_from }} </td>
+                <td class='table1'>{{ variation.pmt_nbr_to }} </td>
+                <td class='table1'>{{ variation.variation_type }} </td>
+                <td class='table1'>{{ variation.variation_value }} </td>
+                <td class='table1'><a href="{% url 'pmt_variation_update' variation.id %}">Edit</a></td>
+                <td class='table1'><a href="{% url 'pmt_variation_delete' variation.id %}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}

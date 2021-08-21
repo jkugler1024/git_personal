@@ -1,0 +1,28 @@
+{% extends "loans/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class='row'>
+        <a href="{% url 'loan_detail' calc.loan_id %}">Back to {{loan.loan_name}}</a>
+    </div>
+    <div class='row d-flex justify-content-center'>
+        <h1>Calculation: {{ calc }}</h1>
+    </div>
+    <div class='row'>
+        <div class="col-md-2">
+            {% crispy form %}
+            <a href="{% url 'pmt_variation_list' calc.id %}">Payment Variations: {{ nbr_variations }}</a>
+        </div>
+        <div class="col-md-10">
+            <div class='card-group'>
+                {% include 'loans/card.html' with header="Maturity Date" card_title=maturity%}
+                {% include 'loans/card.html' with header="Total Payments" card_title=payments%}
+                {% include 'loans/card.html' with header="Principal" card_title=principal%}
+                {% include 'loans/card.html' with header="Interest" card_title=interest%}
+            </div>
+            <a href="{% url 'export_calcsched_excel' calc.id %}" class="btn btn-secondary">Export to Excel</a>
+            {{ schedule|safe}}
+        </div>
+    </div>
+{% endblock content %}

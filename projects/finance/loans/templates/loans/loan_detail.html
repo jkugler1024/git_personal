@@ -1,0 +1,33 @@
+{% extends "loans/base.html" %}
+
+{% block content %}
+    <div class='row'>
+        <a href="{% url 'loan_list' %}">Back to Loan List</a>
+    </div>
+    <div class='row d-flex justify-content-center'>
+        <h1>Loan Name: {{ loan.loan_name }}</h1>
+    </div>
+    <div class='row'>
+        <div class="col-md-4">
+            <div class='row'>
+                <h2>Loan Calculations</h2>
+            </div>
+            <div class='row'>
+                <a href="{% url 'loan_loancalc_create' loan.id %}">Create New LoanCalc</a>
+            </div>
+            <div class='row'>
+                {% include 'loans/list_of_loancalcs.html' with calcs=calcs loan_id=loan.id %}
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class='card-group'>
+                {% include 'loans/card.html' with header="Maturity Date" card_title=maturity%}
+                {% include 'loans/card.html' with header="Total Payments" card_title=payments%}
+                {% include 'loans/card.html' with header="Principal" card_title=principal%}
+                {% include 'loans/card.html' with header="Interest" card_title=interest%}
+            </div>
+            <a href="{% url 'export_loansched_excel' loan.id %}" class="btn btn-secondary">Export to Excel</a>
+            {{ schedule|safe}}
+        </div>
+    </div>
+{% endblock content %}
