@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,6 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '1r^2kmwmxzfhf!^oy@%&a_$h112r%2g-mygeiq4ta=jlf^boa1'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     #my apps
     'loans.apps.LoansConfig',
     'users.apps.UsersConfig',
+    'config.apps.ConfigConfig',
     'crispy_forms',
     'django_extensions',
 ]
@@ -70,6 +75,33 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'finance.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psychopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'finance',
+            'USER': 'postgres',
+            'PASSWORD':'C4r0l1n3!',
+            'HOST':'localhost',
+            'PORT':'5432'
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -31,6 +31,7 @@ def loan_create_view(request):
 
 @login_required
 def loancalc_create_view(request, loan_id=None):
+    print(request.POST)
     loan = Loan.objects.get(id=loan_id)
     existing_calcs = LoanCalc.objects.filter(loan=loan).count()
 
